@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Setup</title>
+</head>
+<body>
+    <!-- <h1>Camera Setup with Vanilla JS</h1>
+    <button id="startButton">Start Camera</button> -->
+    <video id="video" width="640" height="480" autoplay></video>
+    <script>
+       // Prefer camera resolution nearest to 1280x720.
+        const constraints = {
+        audio: true,
+        video: { width: 1280, height: 720 },
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints).then((mediaStream) => {
+            const video = document.querySelector("video");
+            video.srcObject = mediaStream;
+            video.onloadedmetadata = () => {
+            video.play();
+            };
+        })
+        .catch((err) => {
+            // always check for errors at the end.
+            console.error(`${err.name}: ${err.message}`);
+        });
+    </script>
+</body>
+</html>
